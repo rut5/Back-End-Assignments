@@ -46,7 +46,7 @@ interface Book {
 }
 
 const describeBook = (book: Book) => {
-    console.log`The book ${book.title} has ${book.pages} pages`
+    console.log(`The book ${book.title} has ${book.pages} pages`)
 }
 describeBook({ title: "Harry Potter", pages: 382 });
 
@@ -61,20 +61,23 @@ interface Employee {
     email: string;
 }
 
-type SchoolTeacher = Teacher & Employee; 
+type SchoolTeacher = Teacher & Employee;
 // you can also write "interface SchoolTeacher extends Teacher, Employee"
 
 const printTeacherInfo = (schoolteacher: SchoolTeacher) => {
-    console.log(`Name: ${schoolteacher.name},
-        Subject: ${schoolteacher.subject},
-        ID: ${schoolteacher.id},
-        Email: ${schoolteacher.email}`);
+    console.log(`
+Name: ${schoolteacher.name},
+Subject: ${schoolteacher.subject},
+ID: ${schoolteacher.id},
+Email: ${schoolteacher.email}`);
 }
+
 printTeacherInfo({
-    name: "Lars", 
-    subject: "Samhällskunskap", 
-    id: 5, 
-    email: "lars@gmail.com"});
+    name: "Lars",
+    subject: "Samhällskunskap",
+    id: 5,
+    email: "lars@gmail.com"
+});
 
 // 2-3
 interface Car {
@@ -83,41 +86,98 @@ interface Car {
 }
 
 const printCar = (car: Car) => {
-    console.log(`Brand: ${car.brand},
-        Year: ${car.year}`)
+    console.log(`
+Brand: ${car.brand},
+Year: ${car.year}`)
 }
 printCar({
     brand: "Fiat",
     year: 1975,
-}) // fiat 500 cinquecento in gree B-)
+}) // fiat 500 cinquecento in greeN B-)
 
 
-// Enums
+// Enums (fixed list of options) 
 
 // 3-1
+enum Color {
+    Red = "Red",
+    Green = "Green",
+    Blue = "Blue"
+}
+
+const showColor = (chosenColor: Color) => {
+    if (chosenColor === Color.Blue) {
+        console.log("You chose Blue")
+    } else if (chosenColor === Color.Green) {
+        console.log("You chose Green")
+    } else if (chosenColor === Color.Red) {
+        console.log("You chose Red")
+    }
+}
+showColor(Color.Blue);
+
+// 3-2
+enum PizzaSize {
+    Small = "small",
+    Medium = "medium",
+    Large = "large"
+}
+
+const orderPizza  = (chosenPizza: PizzaSize) => {
+    if (chosenPizza === PizzaSize.Small) {
+        console.log("You ordered a small pizza")
+    } else if (chosenPizza === PizzaSize.Medium) {
+        console.log("You ordered a medium pizza")
+    } else if (chosenPizza === PizzaSize.Large) {
+        console.log("You ordered a large pizza")
+    }
+}
+orderPizza(PizzaSize.Medium);
+
+// 3-3
+enum Role {
+    Admin = "Admin",
+    User = "User",
+    Guest = "Guest"
+}
+
+const printRole = (givenRole: Role) => {
+    if (givenRole === Role.Admin) {
+        console.log("You have full access")
+    } else if (givenRole === Role.User) {
+        console.log("You have limited access")
+    } else if (givenRole === Role.Guest) {
+        console.log("You have guest access")
+    }
+}
+printRole(Role.User);
 
 
-/* 3. Enums (fixed list of options) 
+// EXTRA PRACTICE
 
-Exercise 1: 
-Create an enum Color with values: Red, Green, Blue. 
-Write a function showColor that prints "You chose Red/Green/Blue". 
+enum Weekday {
+    Monday = "monday",
+    Tuesday = "tuesday",
+    Wednesday = "wednesday",
+    Thursday = "thursday",
+    Friday = "friday",
+    Saturday = "saturday",
+    Sunday = "sunday",
+}
 
- 
+const isWeekend = (day: Weekday) => {
+    if (day === Weekday.Saturday || day === Weekday.Sunday ) {
+        console.log("Yay! It's the weekend!")
+    } else {
+        console.log("Not the weekend yet ;-(")
+    }
+}
+isWeekend(Weekday.Tuesday);
+isWeekend(Weekday.Saturday);
 
-Exercise 2: 
-Create an enum PizzaSize with values: Small, Medium, Large. 
-Write a function orderPizza that prints: 
-"You ordered a [size] pizza." 
+////
 
- 
-
-Exercise 3: 
-Create an enum Role with values: Admin, User, Guest. 
-Write a function printRole that checks the role: 
-
-Admin → "You have full access" 
-
-User → "You have limited access" 
-
-Guest → "You have guest access"  */
+const convertToArray = <T>(input1: T, input2: T): T[] => {
+    return [input1, input2];
+};
+console.log(convertToArray(2, 45));
