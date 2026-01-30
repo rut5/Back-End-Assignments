@@ -24,10 +24,10 @@ eatFruit("orange");
 // 1-3
 type Result = boolean;
 
-const printResult = (Result: boolean) => {
-    if (Result === true) {
+const printResult = (result: Result) => {
+    if (result === true) {
         console.log("Pass")
-    } else if (Result === false) {
+    } else if (result === false) {
         console.log("Fail")
     } else {
         console.log("No result")
