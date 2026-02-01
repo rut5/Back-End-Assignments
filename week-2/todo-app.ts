@@ -4,11 +4,12 @@ import readline from "readline";
 type Todo = {
   id: number;
   text: string;
+  completed: boolean; // Added for the markAsDone function
 }
 
 // Store todos in memory (array)
 let todos: Todo[] = [];
-let nextID = 1; // New code
+let nextID = 1; // New code (ID's starting from 1 instead of 13 numbers)
 
 // Create readline interface
 const rl = readline.createInterface({
@@ -23,8 +24,9 @@ const addTodo = (): void => {
       console.log("Task cannot be empty!\n");
     } else {
       const newTodo: Todo = {
-        id: nextID++, // New code
+        id: nextID++, // New code (ID's starting from 1 instead of 13 numbers)
         text: text.trim(),
+        completed: false, // New code
       };
 
       todos.push(newTodo);
@@ -38,7 +40,7 @@ const addTodo = (): void => {
 const listTodos = (): void => {
   console.clear();
   console.log("\n=== Todo List App ===");
-  console.log("Commands: add, list, remove, exit\n");
+  console.log("Commands: add, list, remove, mark-as-done exit\n")
 
   if (todos.length === 0) {
     console.log("No todos yet!\n");
@@ -75,6 +77,25 @@ const removeTodo = (): void => {
   });
 };
 
+// Mark todo as done
+const markAsDone = (): void => {
+  rl.question("Enter task ID to mark as done: ", (input: string) => {
+    const id: number = parseInt(input);
+
+    // Find the specific todo by ID
+    const todo = todos.find((t) => t.id === id);
+
+    if (todo) {
+      todo.completed = true;
+      console.log(`✓ Task "${todo.text}" marked as done!\n`);
+    } else {
+      console.log("Task ID not found!\n");
+    }
+
+    showMenu(); // The console log messages doesn't work right now because this function runs immedietly 
+  });
+}
+
 // Handle command logic
 const handleCommand = (command: string): void => {
   switch (command.trim().toLowerCase()) {
@@ -86,6 +107,9 @@ const handleCommand = (command: string): void => {
       break;
     case "remove":
       removeTodo();
+      break;
+    case "mark-as-done":
+      markAsDone();
       break;
     case "exit":
       console.log("Goodbye!");
@@ -101,7 +125,7 @@ const handleCommand = (command: string): void => {
 const showMenu = (): void => {
   console.clear();
   console.log("\n=== Todo List App ===");
-  console.log("Commands: add, list, remove, exit\n");
+  console.log("Commands: add, list, remove, mark-as-done, exit\n");
   process.stdout.write("> ");
   rl.question("", (command: string) => {
     handleCommand(command);
@@ -110,5 +134,5 @@ const showMenu = (): void => {
 
 // Start the app
 console.log("\n=== Todo List App ===");
-console.log("Commands: add, list, remove, exit\n");
+console.log("Commands: add, list, remove, mark-as-done, exit\n");
 showMenu();
