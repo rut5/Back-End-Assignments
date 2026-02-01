@@ -13,9 +13,9 @@ showID("Rut");
 // 1-2
 type Fruit = string;
 
-const eatFruit = (Fruit: string) => {
+const eatFruit = (fruit: Fruit) => {
 
-    console.log("You ate an " + Fruit)
+    console.log("You ate an " + fruit)
 }
 eatFruit("apple");
 eatFruit("orange");
