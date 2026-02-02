@@ -77,6 +77,12 @@ const removeTodo = (): void => {
   });
 };
 
+const pause = (callback: () => void): void => {
+  rl.question("Press Enter to return to menu...", () => {
+    callback();
+  });
+}; // For the console log messages to show up after marking as done
+
 // Mark todo as done
 const markAsDone = (): void => {
   rl.question("Enter task ID to mark as done: ", (input: string) => {
@@ -92,7 +98,7 @@ const markAsDone = (): void => {
       console.log("Task ID not found!\n");
     }
 
-    showMenu(); // The console log messages doesn't work right now because this function runs immedietly 
+    pause(showMenu); 
   });
 }
 
