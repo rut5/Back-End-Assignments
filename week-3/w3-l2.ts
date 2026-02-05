@@ -5,17 +5,34 @@ interface AdviceSlip {
   };
 }
 
-const coinFlip = new Promise<string>((resolve, reject) => {
-  let success = Math.random(); // generates a number between 0 and 1
+const getAdvice = async () => {
 
-  if (success > 0.5) {
-    resolve("You win! Here is your advice: ");
-  } else {
-    reject("You lose! No advice for you today.");
+  const coinFlip = new Promise<string>((resolve, reject) => {
+
+    let success = Math.random(); // generates a number between 0 and 1
+
+    if (success > 0.5) {
+      resolve("You win! Here is your advice: ");
+    } else {
+      reject("You lose! No advice for you today");
+    }
+  });
+
+  try {
+    const message = await coinFlip;
+    console.log(message); // if successful it logs the win message
+    const response = await fetch("https://api.adviceslip.com/advice", { cache: "no-cache" }); // fetch advice fron the API
+    const data: AdviceSlip = await response.json(); // translates the data into JSON
+    console.log(data.slip.advice); // logs the advice
+
+  } catch (error) {
+    console.log(error); // if unsuccessful it logs the error message
   }
-});
+};
 
-coinFlip
+getAdvice();
+
+/* coinFlip
   .then((message) => {
     console.log(message); // if successful it logs the win message
     
@@ -29,4 +46,4 @@ coinFlip
   })
   .catch((error) => {
     console.log(error); // if unsuccessful it logs the error message
-  });
+  }); */
